@@ -84,6 +84,47 @@
 </body>
 
 <script>
+
+const characters = [];
+const list = document.getElementById('list');
+const search = document.querySelector('input');
+
+fetch('https://www.swapi.co/api/people')
+
+//// fetches the list of people (?) from SWAPI
+
+    .then(response => response.json())
+    .then(response => characters.push(...response.results))
+
+    //// response is an array (?) and uses the spread operator to split up the array elements
+
+
+
+function filterText() {
+    const filtered = characters
+        .filter(val => val.name.toLowerCase().includes(this.value.toLowerCase()))
+        .map(val => `<li>${val.name}</li>`)
+
+        //// filteredText goes through the list of names and sees if the character in the input is included in each name in the list
+
+
+    if (filtered.length) {
+        render(filtered)
+
+        //// if filtered.length = 0, returns false
+        //// if filtered.length !=0, returns true and renders the filtered array
+
+    }
+}
+
+function render(array) {
+    const html = array.join('');
+    list.innerHTML = html;
+}
+
+search.addEventListener('keyup', filterText);
+//// whenever the any key goes up, filterText function invokes and returns a new list of names
+
 </script>
 
 </html>
